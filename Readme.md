@@ -36,10 +36,13 @@ python Rice_Counter_OpenCV.py
 ```bash
 conda deactivate
 ```
+- A Jupyter notebook version of the project is also included.  
+  To use it, you will need to install the additional packages `jupyter` and `notebook` inside your conda environment.  
+  Once installed, you can launch the notebook with `jupyter notebook`, which will automatically open the interface in your web browser.
 
 # Rice Detection Report
 <!-- RICE-REPORT-START -->
-**Timestamp:** 2025-12-01 14:57:13  
+**Timestamp:** 2025-12-01 15:32:24  
 **Rice Count:** 101  
 **Detection Report:** All rice grains appear to be detected.  
 
@@ -47,4 +50,42 @@ conda deactivate
 <!-- RICE-REPORT-END -->
 
 # Method Description
+
+-   After loading the image, the first step is to convert it to
+    grayscale, since color does not provide useful information for this
+    task.
+
+-   Next, an adaptive threshold is applied to obtain a binary image in
+    which each rice grain ideally corresponds to pixels with value
+    **1**, while the background corresponds to **0**.\
+    I chose adaptive thresholding because I used it during my internship
+    and because this image shows a noticeable contrast variation near
+    the bottom.
+![Adaptive Threshold Image](figs/rice_binary.png)
+-   To reduce noise introduced by thresholding, a **morphological
+    opening** is performed.\
+    The structuring element is a small circular kernel within a 3×3
+    matrix.\
+    Opening consists of an erosion followed by a dilation: the erosion
+    removes isolated bright pixels (noise), and the dilation restores
+    the shape of larger structures such as rice grains.
+![Morphological Opening](figs/rice_opening.png)
+-   Although the image is now cleaner, several rice grains remain in
+    contact with each other. If we were to apply Connected Component
+    Labeling at this stage, touching grains would be counted as a single
+    object. To separate them, a **distance transform** is applied.\
+    This produces a grayscale image where each pixel's value represents
+    its distance to the nearest background pixel.\
+    To preserve rice grains at the image boundary, the transform is
+    applied to an image with the borders removed.
+
+-   The distance-transformed image is then thresholded to isolate
+    individual "peaks," corresponding to the centers of each rice grain.
+![Distance Thresholding](figs/rice_opening.png)
+-   At this stage, **Connected Component Labeling** can be used to
+    identify each rice grain as an individual cluster.
+![Cluster Labeling](figs/rice_labels.png)
+-   Finally, a dilation step is applied to recover the grains'
+    approximate original shapes for visualization.
+![Labeled Rice Grains](figs/rice_coloured.png)
 
