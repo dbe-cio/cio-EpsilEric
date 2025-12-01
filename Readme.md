@@ -7,6 +7,10 @@ Your task is to count the number of ricecorn in the image `figs/rice.png` and to
 
 ![rice.png](figs/rice.png)
 
+# Solution
+
+Proposed solution from Eric Freiermuth, given the image characteristics, I chose to go with OpenCV and classical computer vision algorithms to preprocess the image and then isolate the individual clusters corresponding to rice grains. A more detailed explanation of the different steps can be found at the end of this `Readme.md`.
+
 ## Setup and Run
 
 Open a terminal and run the following commands:
@@ -33,37 +37,14 @@ python Rice_Counter_OpenCV.py
 conda deactivate
 ```
 
-### Step 3: Documentation
-Add a description in the `Readme.md` that explains how to run your code. Please include:
-- All steps needed to set up and run your solution.
-- Instructions to create and activate any Conda environment if required.
-- Instructions for installing all dependencies.
-- Clear steps to execute the script or program so that we can reproduce your result without issues.
-
-Assume the reviewer is familiar with:
-- Terminal and command line
-- Conda, Miniconda, or Micromamba
-- Creating and activating Conda environments
-
-
-### Step 4: Push your code
-- Push all your code, documentation, and results to your own GitHub repository.
-- Send us the link to your repository when you are done.
-
-
-
-**Remarks:** 
-- Any programming language is allowed (Python preferred).
-- Even if you do not manage to count all ricecorn, this is acceptable.
-- The most important part is your approach, structure, and clarity.
-- Make sure your instructions allow us to run your code without problems.
-
-
 # Rice Detection Report
 <!-- RICE-REPORT-START -->
-**Timestamp:** 2025-12-01 15:15:42  
+**Timestamp:** 2025-12-01 14:57:13  
 **Rice Count:** 101  
 **Detection Report:** All rice grains appear to be detected.  
 
 ![Labeled Rice Grains](figs/rice_coloured.png)
 <!-- RICE-REPORT-END -->
+
+# Method Description
+
