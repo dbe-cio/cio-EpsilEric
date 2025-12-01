@@ -61,6 +61,7 @@ conda deactivate
     I chose adaptive thresholding because I used it during my internship
     and because this image shows a noticeable contrast variation near
     the bottom.
+
 ![Adaptive Threshold Image](figs/rice_binary.png)
 -   To reduce noise introduced by thresholding, a **morphological
     opening** is performed.\
@@ -69,6 +70,7 @@ conda deactivate
     Opening consists of an erosion followed by a dilation: the erosion
     removes isolated bright pixels (noise), and the dilation restores
     the shape of larger structures such as rice grains.
+
 ![Morphological Opening](figs/rice_opening.png)
 -   Although the image is now cleaner, several rice grains remain in
     contact with each other. If we were to apply Connected Component
@@ -81,11 +83,14 @@ conda deactivate
 
 -   The distance-transformed image is then thresholded to isolate
     individual "peaks," corresponding to the centers of each rice grain.
+
 ![Distance Thresholding](figs/rice_opening.png)
 -   At this stage, **Connected Component Labeling** can be used to
     identify each rice grain as an individual cluster.
+
 ![Cluster Labeling](figs/rice_labels.png)
 -   Finally, a dilation step is applied to recover the grains'
     approximate original shapes for visualization.
+
 ![Labeled Rice Grains](figs/rice_coloured.png)
 
