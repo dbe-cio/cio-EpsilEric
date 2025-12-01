@@ -30,7 +30,7 @@ python Rice_Counter_OpenCV.py
 ```
 
 ### Notes:
-- Replace `/path/to/your/project` with the actual path where your script is located.  
+- Replace `/path/to/your/project` with the actual path where this script is located.  
 - After running the script, you can deactivate the environment with:
 
 ```bash
@@ -63,6 +63,7 @@ conda deactivate
     the bottom.
 
 ![Adaptive Threshold Image](figs/rice_binary.png)
+
 -   To reduce noise introduced by thresholding, a **morphological
     opening** is performed.\
     The structuring element is a small circular kernel within a 3×3
@@ -72,6 +73,7 @@ conda deactivate
     the shape of larger structures such as rice grains.
 
 ![Morphological Opening](figs/rice_opening.png)
+
 -   Although the image is now cleaner, several rice grains remain in
     contact with each other. If we were to apply Connected Component
     Labeling at this stage, touching grains would be counted as a single
@@ -84,13 +86,23 @@ conda deactivate
 -   The distance-transformed image is then thresholded to isolate
     individual "peaks," corresponding to the centers of each rice grain.
 
-![Distance Thresholding](figs/rice_opening.png)
+![Distance Thresholding](figs/rice_sure_fg.png)
+
 -   At this stage, **Connected Component Labeling** can be used to
     identify each rice grain as an individual cluster.
 
 ![Cluster Labeling](figs/rice_labels.png)
+
 -   Finally, a dilation step is applied to recover the grains'
     approximate original shapes for visualization.
 
 ![Labeled Rice Grains](figs/rice_coloured.png)
+
+## Additional Discussion
+
+- With this approach, we can also obtain statistics on the sizes of the rice grains. This allows us to filter or discard grains whose cluster size is too small, for example.
+
+![Rice Grains Size Historgram](figs/rice_cluster_size_histogram.png)
+
+- Several methods can be used to separate individual grains. I experimented with different approaches, but the most robust solution was applying a distance transform combined with an appropriate threshold value.
 
